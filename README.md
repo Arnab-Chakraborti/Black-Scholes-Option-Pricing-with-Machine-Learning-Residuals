@@ -1,30 +1,30 @@
 # Black–Scholes Option Pricing with Machine Learning Residual Correction  
 
-## 📌 Project Overview  
+## Project Overview  
 This project combines the **Black–Scholes option pricing model** with **Machine Learning** to improve accuracy in pricing European call and put options.  
 - Implemented the Black–Scholes closed-form solution and Greeks.  
 - Computed implied volatility (IV) from market option data using numerical methods.  
 - Trained ML models to capture residual errors between Black–Scholes theoretical prices and actual market prices.  
 - Achieved a hybrid approach that balances **theoretical interpretability** with **data-driven accuracy**.  
 
-## ⚙️ Features  
+## Features  
 - Black–Scholes implementation (call/put pricing + Greeks).  
 - Implied volatility estimation via Newton–Raphson / Brent’s method.  
 - Data preprocessing and feature engineering for options data.  
 - ML regressors (Random Forest, XGBoost, Neural Nets) for residual correction.  
 - Visualization of volatility smile/surface and pricing improvements.  
 
-## 📊 Results  
+## Results  
 - Baseline: Black–Scholes option prices vs market prices.  
 - Improved hybrid predictions after residual correction.  
 - Visualization of pricing error reduction.  
 
-## 🛠️ Tech Stack  
+##  Tech Stack  
 - **Python**: NumPy, Pandas, Scikit-learn, Matplotlib/Seaborn  
 - **ML models**: Random Forest, XGBoost, Neural Networks  
 - **Optimization**: SciPy (for root-finding in IV estimation)  
 
-## 📂 Project Structure  
+##  Project Structure  
 ```
 ├── data/                 # Option market data (or sample CSV)
 ├── notebooks/            # Jupyter notebooks for experiments
@@ -34,7 +34,7 @@ This project combines the **Black–Scholes option pricing model** with **Machin
 └── README.md             # Project documentation
 ```
 
-## 🚀 How to Run  
+##  How to Run  
 1. Clone the repo  
 ```bash
 git clone https://github.com/your-username/black-scholes-ml.git
@@ -47,6 +47,6 @@ pip install -r requirements.txt
 3. Run the notebook in `notebooks/` to reproduce results.  
 
 ## 📖 References  
-- Black & Scholes (1973): *The Pricing of Options and Corporate Liabilities*  
-- Hull, J. (Options, Futures, and Other Derivatives)  
-- Gatheral, J. (The Volatility Surface)  
+- Paul Wilmott introduces Quantitative Finance
+- Youtube: Volatility Surface and Volatility Smile Explained (https://youtu.be/G7gf-oXptxE?si=FdCG6jFAkFeOhtPV) 
+- The Trillion Dollar Equation (https://youtu.be/A5w-dEgIU1M?si=WN5PmIXNTTJpqpyx)
