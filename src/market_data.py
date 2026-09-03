@@ -70,3 +70,86 @@ def create_synthetic_option_chain(
     df = pd.DataFrame(rows)
 
     return df
+
+from .black_scholes import option_price
+
+
+def generate_market_prices(df, noise_std=0.02, seed=42):
+
+    df = df.copy()
+
+    rng = np.random.default_rng(seed)
+
+    df["bs_price"] = df.apply(
+        lambda row: option_price(
+            S=row["spot"],
+            K=row["strike"],
+            T=row["T"],
+            r=row["rate"],
+            sigma=row["true_vol"],
+            option_type=row["option_type"],
+            q=row["dividend_yield"],
+        ),
+        axis=1
+    )
+
+    noise = rng.normal(
+        loc=0.0,
+        scale=noise_std,
+        size=len(df)
+    )
+
+    df["mid"] = np.maximum(
+        df["bs_price"] + noise,
+        0.001
+    )
+
+    # Simulated bid/ask spread
+    spread = 0.02 + 0.005 * df["mid"]
+
+    df["bid"] = np.maximum(
+        df["mid"] - spread / 2,
+        0.001
+    )
+
+    df["ask"] = df["mid"] + spread / 2
+
+    # Simulated volume
+    df["volume"] = rng.integers(
+        10,
+        1000,
+        size=len(df)
+    )
+
+    # Simulated open interest
+    df["open_interest"] = rng.integers(
+        100,
+        10000,
+        size=len(df)
+    )
+
+    return df
+
+def add_moneyness(df):
+
+    df = df.copy()
+
+    df["moneyness"] = (
+        df["strike"] / df["spot"]
+    )
+
+    df["log_moneyness"] = np.log(
+        df["strike"] / df["spot"]
+    )
+
+    return df
+
+def build_synthetic_dataset():
+
+    df = create_synthetic_option_chain()
+
+    df = generate_market_prices(df)
+
+    df = add_moneyness(df)
+
+    return df
